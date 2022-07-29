@@ -1,0 +1,19 @@
+const { MessageEmbed } = require('discord.js');
+
+
+module.exports = {
+  name: "lock",
+  run: async (client, message, args, colorEM, prefixN) => {
+    let Permssion = new MessageEmbed().setColor("#FF0000").setDescription("**🙄 | You don't have `'MANAGE_CHANNELS'` Permssion**")
+    if (!message.member.permissions.has("MANAGE_CHANNELS")) return message.reply({embeds: [Permssion]});
+    message.channel.permissionOverwrites.edit(message.guild.id, {SEND_MESSAGES: false});
+    const embed = new MessageEmbed()
+    .setAuthor({ name: `${message.author.tag}`, iconURL: `${message.author.avatarURL({dynamic: true})}`})
+    .setColor(colorEM)
+    .setDescription(`> ✅ **This Channel Has Locked**`)
+    .setFooter({ text: `${message.guild.name}`, iconURL: `${message.guild.iconURL({dynamic: true})}`});
+    message.reply({
+      embeds: [embed]
+    })
+  }
+}
